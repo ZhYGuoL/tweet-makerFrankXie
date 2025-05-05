@@ -234,14 +234,6 @@
             </div>
 
             <div class="form-group">
-              <label id="formCountText" for="formCount">Views:</label>
-              <input type="text" class="form-control" id="formCount" aria-describedby="countHelp" placeholder="Views">
-              <small id="countHelp" class="form-text text-muted">Specify the number of views to display.</small>
-            </div>
-
-
-
-            <div class="form-group">
               <label id="formContentImgText" for="formContentImgStatus">Content Image:</label>
               <select class="form-control" id="formContentImgStatus" name="formContentImgStatus" aria-describedby="contentImgSelectHelp">
                 <option id="formContentImgOption0Text" value="0">No Image</option>
@@ -291,8 +283,6 @@
                 <div id="previewContentImgBlock" style="margin-top: 20px; display: none;">
                   <img id="previewContentImg" src="img/select.png" title="Tweet Generator Preview Post Image" alt="Tweet Generator Preview Post Image" width="100%" style="border-radius: .50rem;">
                 </div>
-					 
-					 <div class="showDate"><span id="previewDate">7:16 PM · 20 июл. 2023 г.</span>· <b id="previewCount" ="color: rgb(0, 0, 0); font-size: 15px;">100</b> <span id="previewViews">views</span></div>
               </div>
             </div>
           </div>
@@ -365,10 +355,6 @@
       $("#previewProfileImg").attr({ title: "Генератор постов предпросмотр Фото профиля", alt: "Генератор постов предпросмотр Фото профиля" });
       $("#previewName").text("Имя Фамилия");
       $("#previewUsername").text("@username");
-      $("#previewViews").text("просмотров");
-      $("#formCountText").text("Просмотров");
-      $("#formCount").attr("placeholder", "Просмотров");
-      $("#countHelp").text("Укажите нужное кол-во просмотров для показа");
       $("#previewText").html('Измените этот текст сообщения. <span class="link">@lifeloox</span>');
       $("#previewContentImg").attr({ title: "Генератор постов предпросмотр изображения к записи", alt: "Генератор постов предпросмотр изображения к записи" });
       $("#download").html('<i class="fa fa-download"></i> Скачать Скриншот');
@@ -414,10 +400,6 @@
       $("#previewProfileImg").attr({ title: "Tweet Oluşturucu Profil Fotoğrafı Önizlemesi", alt: "Tweet Oluşturucu Profil Fotoğrafı Önizlemesi" });
       $("#previewName").text("İsim Soyisim");
       $("#previewUsername").text("@kullaniciadi");
-      $("#previewViews").text("görüntüleme");
-      $("#formCountText").text("Görüntüleme");
-      $("#formCount").attr("placeholder", "Görüntüleme");
-      $("#countHelp").text("Görüntülenecek istenen görünüm sayısını belirtin");
       $("#previewText").html('Bu yazıyı açıklama bölümünden düzenleyin. <span class="link">@lifeloox</span>');
       $("#previewContentImg").attr({ title: "Tweet Oluşturucu İçerik Resmi Önizlemesi", alt: "Tweet Oluşturucu İçerik Resmi Önizlemesi" });
       $("#download").html('<i class="fa fa-download"></i> Ekran Görüntüsünü İndir');
@@ -464,10 +446,6 @@
       $("#previewProfileImg").attr({ title: "Tweet Generator Preview Profile Photo", alt: "Tweet Generator Preview Profile Photo" });
       $("#previewName").text("Name Surname");
       $("#previewUsername").text("@username");
-      $("#previewViews").text("views");
-      $("#formCountText").text("Views");
-      $("#formCount").attr("placeholder", "Views");
-      $("#countHelp").text("Specify the desired number of views to display");
       $("#previewText").html('Edit this text on content. <span class="link">@lifeloox</span>');
       $("#previewContentImg").attr({ title: "Tweet Generator Preview Post Image", alt: "Tweet Generator Preview Post Image" });
       $("#download").html('<i class="fa fa-download"></i> Download Screenshot');
@@ -492,16 +470,6 @@
       /*Tarayıcı Diline Göre Yazı Değiştirme | Switching Text by Browser Language |  Переключение текста по языку браузера*/
       var browserLang = navigator.language || navigator.userLanguage; // Tarayıcı Dili | Browser Language | Язык браузера
       langWrite(browserLang);
-      
-      /*Geçerli tarihin oluşumu | Formation of the current date | Формирование текущей даты*/
-      var hours = currentDate.getHours();
-      var minutes = currentDate.getMinutes();
-      var amOrPm = hours >= 12 ? "PM" : "AM";
-      hours = hours % 12;
-      hours = hours ? hours : 12;
-      var month = monthNames[currentDate.getMonth()];
-      var year = currentDate.getFullYear();
-      minutes = minutes < 10 ? "0" + minutes : minutes;
       
       /*Sayfa Açıldığında son yazdıkları geri gelecek | When the page is opened, the last posts will come back | При открытии страницы вернутся последние сообщения*/
       if (localStorage.getItem("theme") == "1") {
@@ -621,18 +589,6 @@
         }
       });
       
-       /*Görüntüleme sayısını ayarlama | Setting the number of views | Установка кол-ва просмотров*/
-      $("#formCount").keyup(function() {
-        if ($(this).val() == "") {
-          $("#previewCount").text("100");
-        } else {
-          $("#previewCount").text($(this).val());
-        }
-      });
-
-       /*Geçerli tarihi önizlemede ayarlama | Setting the current date in the preview | Установка текущей даты в предварительном просмотре*/
-      $("#previewDate").text(hours + ":" + minutes + " " + amOrPm + " · " + currentDate.getDate() + " " + month + " " + year + " г.");
-		
       /*Profil resmimi önizle | Preview my profile picture | Предварительный просмотр моей аватарки*/
       function profileReadURL(input) {
         if (input.files && input.files[0]) {
