@@ -208,6 +208,13 @@
                     <span class="border-radius-value">4px</span>
                   </div>
                 </div>
+                <div class="form-group border-radius-control">
+                  <label id="formWidthText" for="tweetWidth">Tweet Width:</label>
+                  <div class="d-flex align-items-center">
+                    <input type="range" class="form-control-range" id="tweetWidth" min="300" max="600" value="500">
+                    <span class="width-value">500px</span>
+                  </div>
+                </div>
                 <div class="form-group row">
                   <label id="formImgText" for="formProfileImg" class="col-sm-4 col-form-label">Photo:</label>
                   <div class="col-sm-8">
@@ -405,6 +412,7 @@
         localStorage.setItem("contentImgStatus", $("#formContentImgStatus").val());
         localStorage.setItem("contentImg", $("#formContentImg").attr("src"));
         localStorage.setItem("borderRadius", $("#borderRadius").val());
+        localStorage.setItem("tweetWidth", $("#tweetWidth").val());
       }
 
       // Function to load all settings
@@ -457,6 +465,11 @@
         // Load border radius
         if (localStorage.getItem("borderRadius")) {
           $("#borderRadius").val(localStorage.getItem("borderRadius"));
+        }
+        
+        // Load tweet width
+        if (localStorage.getItem("tweetWidth")) {
+          $("#tweetWidth").val(localStorage.getItem("tweetWidth"));
         }
       }
 
@@ -531,6 +544,11 @@
         var radius = $("#borderRadius").val();
         $(".preview").css("border-radius", radius + "px");
         $(".border-radius-value").text(radius + "px");
+
+        // Update tweet width
+        var width = $("#tweetWidth").val();
+        $(".preview").css("width", width + "px");
+        $(".width-value").text(width + "px");
       }
 
       // Load all settings when page loads
@@ -548,7 +566,7 @@
         updatePreview();
       });
 
-      $("#borderRadius").on("input", function() {
+      $("#borderRadius, #tweetWidth").on("input", function() {
         saveAllSettings();
         updatePreview();
       });
@@ -591,13 +609,14 @@
 
       /*Resim oluştur ve indir | Create and download image | Создать и скачать изображение*/
       $("#download").click(function() {
+        var currentWidth = $('.preview').css('width');
         $('.preview').css('width', '500px');
         html2canvas(document.querySelector("#preview")).then(canvas => {
           var a = document.createElement('a');
           a.href = canvas.toDataURL("image/png");
           a.download = "ss_" + Math.floor(Math.random() * 1001) + ".png";
           a.click();
-          $('.preview').css('width', 'auto');
+          $('.preview').css('width', currentWidth);
         });
         saveAllSettings();
       });
