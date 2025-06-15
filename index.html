@@ -609,14 +609,13 @@
 
       /*Resim oluştur ve indir | Create and download image | Создать и скачать изображение*/
       $("#download").click(function() {
-        var currentWidth = $('.preview').css('width');
-        $('.preview').css('width', '500px');
+        // Get the current width value from the input
+        var currentWidth = $("#tweetWidth").val() + "px";
         html2canvas(document.querySelector("#preview")).then(canvas => {
           var a = document.createElement('a');
           a.href = canvas.toDataURL("image/png");
           a.download = "ss_" + Math.floor(Math.random() * 1001) + ".png";
           a.click();
-          $('.preview').css('width', currentWidth);
         });
         saveAllSettings();
       });
